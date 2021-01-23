@@ -1,0 +1,13 @@
+To run the test with the smoke mark only:
+py.test -svm smoke <file/folder>
+
+To run all test except the smoke mark:
+py.test -svm 'not smoke' <file/folder>
+
+To run tests with the smoke mark and tests with the regres mark:
+py.test -svm 'smoke or regres' <file/folder>
+
+To run tests with severels marks:
+py.test -svm 'regres and win10' <file/folder>
+
+# Only the tests that have marks regres and win10 wil be run
