@@ -7,12 +7,12 @@ from selenium import webdriver
 def pytest_addoption(parser):
   parser.addoption('--env', action='store', default='Trex', help='The environment to run tests on')
 
-# @pytest.fixture(scope="function")
-# def browser():
-#   browser = webdriver.Chrome()
-#   browser.implicitly_wait(5)
-#   yield browser
-#   browser.quit()
+@pytest.fixture(scope="function")
+def browser():
+  browser = webdriver.Chrome()
+  browser.implicitly_wait(5)
+  yield browser
+  browser.quit()
 
 @pytest.fixture(scope="session")
 def session_env(request):
