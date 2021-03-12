@@ -20,3 +20,6 @@ class BasePage:
     except NoSuchElementException:
       return False
     return True
+  
+  def is_on_page(self):
+    return self.browser.current_url == self.url
