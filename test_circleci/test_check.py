@@ -1,3 +1,7 @@
+import pytest
+
+
+@pytest.mark.citest
 def test_hello_natasha():
   assert 'Natasha' == 'Natasha'
 
