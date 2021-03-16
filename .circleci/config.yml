@@ -16,8 +16,15 @@ jobs:
             pytest --env=Preview --tb=line
 
 workflows:
-  main:
+  version: 2
+  cheduled-all-run:
+    triggers:
+      - schedule:
+          cron: "0 19 * * *"
+          filters:
+            branches:
+              - main
     jobs:
       - test:
           context:
-            - test_context
+            - test-context
