@@ -14,9 +14,25 @@ jobs:
             source venv/bin/activate
             pip3 install -r requirements.txt
             pytest --env=Preview --tb=line
+  run-check:
+    working_directory: ~/stepikqa
+    docker: 
+      - image: circleci/python:3.7.9
+    steps:
+      - checkout
+      - run:
+          name: Check new code
+          command: |
+            python3 -m venv venv
+            source venv/bin/activate
+            pip3 install -r requirements.txt
+            pytest -m <<pipeline.git.tag>> --env=Preview --tb=line
 
 workflows:
   version: 2
+  commit:
+    jobs:
+      - run-check
   cheduled-all-run:
     triggers:
       - schedule:
