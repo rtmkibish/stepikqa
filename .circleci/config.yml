@@ -44,7 +44,7 @@ workflows:
   cheduled-all-run:
     triggers:
       - schedule:
-          cron: "0 19 * * *"
+          cron: "0 9 * * *"
           filters:
             branches:
               only:
