@@ -5,6 +5,12 @@ class BasePageLocators:
   LOGIN_LINK = (By.XPATH, '//*[@id="login_link"]')
 
 
+class BasketPageLocators:
+  BASKET_LINK = (By.XPATH, '//span//a[contains(@href, "/basket/")]')
+  BASKET_PRODUCTS_FORM = (By.XPATH, '//form[@id="basket_formset"]')
+  BASKET_IS_EMPTY_MESSAGE = (By.XPATH, '//div[@id="content_inner"]/p')
+
+
 class LoginPageLocators:
   LOGIN_FORM = (By.XPATH, '//form[@id="login_form"]')
   REGISTER_FORM = (By.XPATH, '//*[@id="register_form"]')
