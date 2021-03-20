@@ -1,4 +1,7 @@
-from selenium.common.exceptions import NoAlertPresentException, NoSuchElementException
+from selenium.common.exceptions import NoAlertPresentException, NoSuchElementException, TimeoutException
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
+
 
 from pages.base_page import BasePage
 from pages.locators import ProductPageLocators
@@ -35,3 +38,9 @@ class ProductPage(BasePage):
       raise AssertionError("Correct product price should be presented in the message")
 
     assert product_price == message_product_price, "Product price should be the same in the message"
+
+  def is_not_product_added_message(self):
+    assert self.is_not_element_present(*ProductPageLocators.PRODUCT_ADDED_MESSAGE), 'Product message appeared but it must not'
+
+  def is_product_message_disappeared(self):
+    assert self.is_disapeared(*ProductPageLocators.PRODUCT_ADDED_MESSAGE), 'Product message did not disappeared but must'

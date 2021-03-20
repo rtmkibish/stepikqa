@@ -32,3 +32,24 @@ def test_guest_can_add_product_to_basket_parametrized(browser, link):
   product_page.should_be_added_correct_product_name()
   product_page.should_message_price_be_equal_to_product_price()
   product_page.should_basket_price_equal_to_product_price()
+
+@pytest.mark.xfail(reason='Fail due to the stepik task condition')
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+  product_page = ProductPage('http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019', browser, 0)
+  product_page.open()
+  product_page.add_product_to_basket()
+  product_page.solve_quiz_and_get_code()
+  product_page.is_not_product_added_message()
+
+def test_guest_cant_see_success_message(browser):
+  product_page = ProductPage('http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019', browser, 0)
+  product_page.open()
+  product_page.is_not_product_added_message()
+
+@pytest.mark.xfail(reason='Fail due to the stepik task condition')
+def test_message_disappeared_after_adding_product_to_basket(browser):
+  product_page = ProductPage('http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019', browser, 0)
+  product_page.open()
+  product_page.add_product_to_basket()
+  product_page.solve_quiz_and_get_code()
+  product_page.is_product_message_disappeared()
