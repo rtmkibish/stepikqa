@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 
 class BasePageLocators:
   LOGIN_LINK = (By.XPATH, '//*[@id="login_link"]')
+  USER_ACCOUNT = (By.XPATH, '//a[contains(@href, "/accounts/") and not(@id="logout_link")]')
 
 
 class BasketPageLocators:
@@ -14,6 +15,10 @@ class BasketPageLocators:
 class LoginPageLocators:
   LOGIN_FORM = (By.XPATH, '//form[@id="login_form"]')
   REGISTER_FORM = (By.XPATH, '//*[@id="register_form"]')
+  REG_EMAIL_FIELD = (By.XPATH, '//form//input[@id="id_registration-email"]')
+  REG_PASSWORD_FIELD = (By.XPATH, '//form//input[@id="id_registration-password1"]')
+  REG_CONFIRM_PASSWORD_FIELD = (By.XPATH, '//form//input[@id="id_registration-password2"]')
+  REGISTER_BUTTON = (By.XPATH, '//form//button[@name="registration_submit"]')
 
 
 class ProductPageLocators:
