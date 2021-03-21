@@ -5,14 +5,6 @@ from pages.login_page import LoginPage
 from pages.basket_page import BasketPage
 
 
-def test_guest_can_add_product_to_basket(browser):
-  product_page = ProductPage('http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019', browser)
-  product_page.open()
-  product_page.add_product_to_basket()
-  product_page.solve_quiz_and_get_code()
-  product_page.should_be_added_correct_product_name()
-  product_page.should_message_price_be_equal_to_product_price()
-  product_page.should_basket_price_equal_to_product_price()
 
 @pytest.mark.parametrize('link', [
   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
@@ -43,10 +35,6 @@ def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
   product_page.solve_quiz_and_get_code()
   product_page.is_not_product_added_message()
 
-def test_guest_cant_see_success_message(browser):
-  product_page = ProductPage('http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019', browser, 0)
-  product_page.open()
-  product_page.is_not_product_added_message()
 
 @pytest.mark.xfail(reason='Fail due to the stepik task condition')
 def test_message_disappeared_after_adding_product_to_basket(browser):
@@ -79,3 +67,31 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
   basket_page.is_on_page()
   basket_page.should_not_be_products()
   basket_page.should_be_basket_empty_message()
+
+
+class TestUserAddToBasketFromProductPage:
+  """
+  Grouped tests related to adding product to the basket
+  """
+  @pytest.fixture(scope='function', autouse=True)
+  def setup(self, browser):
+    login_page = LoginPage('http://selenium1py.pythonanywhere.com/en-gb/accounts/login/', browser)
+    login_page.open()
+    login_page.register_new_user()
+    login_page.should_be_authorized_user()
+
+  @pytest.mark.flaky(reruns=3, reruns_delay=30)
+  def test_user_can_add_product_to_basket(self, browser):
+    product_page = ProductPage('http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019', browser)
+    product_page.open()
+    product_page.add_product_to_basket()
+    product_page.solve_quiz_and_get_code()
+    product_page.should_be_added_correct_product_name()
+    product_page.should_message_price_be_equal_to_product_price()
+    product_page.should_basket_price_equal_to_product_price()
+
+  @pytest.mark.flaky(reruns=3, reruns_delay=30)
+  def test_user_cant_see_success_message(self, browser):
+    product_page = ProductPage('http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019', browser, 0)
+    product_page.open()
+    product_page.is_not_product_added_message()
