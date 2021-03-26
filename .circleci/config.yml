@@ -4,7 +4,7 @@ parameters:
   run_regression_per_connector:
     type: boolean
     default: false
-  marker:
+  comands:
     type: string
     default: smoke
 
@@ -34,13 +34,15 @@ jobs:
             python3 -m venv venv
             source venv/bin/activate
             pip3 install -r requirements.txt
-            pytest -m << pipeline.parameters.marker >> --env=Trex --tb=line
+            login=$OKTA_LOGIN password=$OKTA_PASSWORD pytest << pipeline.parameters.comands >> --env=Trex --tb=line
 workflows:
   version: 2
   commit:
     when: << pipeline.parameters.run_regression_per_connector >>
     jobs:
-      - run-check
+      - run-check:
+          context:
+            - test-context
   cheduled-all-run:
     triggers:
       - schedule:
